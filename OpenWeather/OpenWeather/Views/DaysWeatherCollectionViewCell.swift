@@ -9,7 +9,7 @@ import UIKit
 
 class DaysWeatherCollectionViewCell: UICollectionViewCell {
     static let reuseID = "DaysWeatherCollectionViewCellReuseID"
-    var dayLabel = UILabel(text: "Now")
+    var dayLabel = UILabel(text: "Today", fontSize: 20, color: UIColor.white, bold: true)
     var weatherImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "cloud.fill")
@@ -17,14 +17,14 @@ class DaysWeatherCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    var minTemperatureLabel = UILabel(text: "15˚")
-    var maxTemperatureLabel = UILabel(text: "20˚")
+    var minTemperatureLabel = UILabel(text: "15˚", fontSize: 20, color: UIColor.white, bold: true)
+    var maxTemperatureLabel = UILabel(text: "20˚", fontSize: 20, color: UIColor.white, bold: true)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .clear
     }
 
     required init?(coder: NSCoder) {
@@ -39,7 +39,7 @@ class DaysWeatherCollectionViewCell: UICollectionViewCell {
         let constraints = [
             dayLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             dayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                              constant: 5),
+                                              constant: 7),
             dayLabel.trailingAnchor.constraint(equalTo: weatherImage.leadingAnchor,
                                                constant: -15),
 
@@ -59,7 +59,7 @@ class DaysWeatherCollectionViewCell: UICollectionViewCell {
             maxTemperatureLabel.leadingAnchor.constraint(equalTo: minTemperatureLabel.trailingAnchor,
                                                         constant: 100),
             maxTemperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                         constant: -5)
+                                                         constant: -7)
         ]
         NSLayoutConstraint.activate(constraints)
     }

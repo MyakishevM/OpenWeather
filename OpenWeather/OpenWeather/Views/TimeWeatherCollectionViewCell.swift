@@ -9,7 +9,7 @@ import UIKit
 
 final class TimeWeatherCollectionViewCell: UICollectionViewCell {
     static let reuseID = "TimeWeatherCollectionViewCellReuseID"
-    var timeLabel = UILabel(text: "Now")
+    var timeLabel = UILabel(text: "Now", fontSize: 15, color: UIColor.white, bold: true)
     var weatherImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "cloud.fill")
@@ -17,13 +17,13 @@ final class TimeWeatherCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    var temperatureLabel = UILabel(text: "15˚")
+    var temperatureLabel = UILabel(text: "15˚", fontSize: 18, color: UIColor.white, bold: true)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
