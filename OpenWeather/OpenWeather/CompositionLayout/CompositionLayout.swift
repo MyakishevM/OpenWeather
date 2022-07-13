@@ -15,22 +15,20 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets.trailing = 8
-            item.contentInsets.leading = 8
-
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.15),
                                                    heightDimension: .estimated(100))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
+            
             let section = NSCollectionLayoutSection(group: group)
+            
+            section.orthogonalScrollingBehavior = .continuous
+         
             section.boundarySupplementaryItems = [
                 .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                         heightDimension: .absolute(20)),
-                      elementKind: MainScreenView.weatherHeaderID, alignment: .topLeading)
+                      elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
             ]
-            section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets.leading = 5
-            section.contentInsets.bottom = 10
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
             return section
 
         case 1:
@@ -44,12 +42,12 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
             let section = NSCollectionLayoutSection(group: group)
-//            section.boundarySupplementaryItems = [
-//                .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-//                                        heightDimension: .absolute(30)),
-//                      elementKind: MainScreenView.weatherForecasHeaderID, alignment: .topLeading)
-//            ]
-            section.contentInsets.top = 10
+            section.boundarySupplementaryItems = [
+                .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
+                                        heightDimension: .absolute(50)),
+                      elementKind: MainScreenView.dayWeatherHeaderID, alignment: .topLeading)
+            ]
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
             return section
         default :
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -64,8 +62,8 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [
                 .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                        heightDimension: .absolute(50)),
-                      elementKind: MainScreenView.weatherHeaderID, alignment: .topLeading)
+                                        heightDimension: .absolute(30)),
+                      elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
             ]
             return section
         }

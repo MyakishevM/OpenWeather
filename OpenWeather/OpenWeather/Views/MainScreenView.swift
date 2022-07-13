@@ -8,25 +8,26 @@
 import UIKit
 
 class MainScreenView: UIView {
-    static let weatherHeaderID = "weatherHeaderID"
-    static let weatherForecasHeaderID = "weatherForecasHeaderID"
-    let headerId = "headerId"
-    let forecastHeaderId = "forecastHeaderId"
-    private var weatherLabel = UILabel(text: "City")
-    private var temperatureLabel = UILabel(text: "temp˚")
-    private var descriptionLabel = UILabel(text: "showers")
-    private var maxTemperatureLabel = UILabel(text: "maxTemp˚")
-    private var minTemperatureLabel = UILabel(text: "minTemp˚")
+    static let timeWeatherHeaderID = "timeWeatherHeaderID"
+    static let dayWeatherHeaderID = "dayWeatherHeaderID"
+    let timeHeaderId = "timeHeaderId"
+    let dayHeaderId = "dayHeaderId"
+    private var cityLabel = UILabel(text: "City", fontSize: 25, color: UIColor.white, bold: true)
+    private var temperatureLabel = UILabel(text: "17", fontSize: 70, color: UIColor.white, bold: false)
+    private var gradusLabel = UILabel(text: "˚", fontSize: 80, color: UIColor.white, bold: true)
+    private var descriptionLabel = UILabel(text: "showers", fontSize: 20, color: UIColor.white, bold: true)
+    private var maxTemperatureLabel = UILabel(text: "H:18˚", fontSize: 20, color: UIColor.white, bold: true)
+    private var minTemperatureLabel = UILabel(text: "L:12˚", fontSize: 20, color: UIColor.white, bold: true)
     private var collectionView: UICollectionView?
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
         setupConstraints()
-        backgroundColor = .systemMint
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,10 +35,11 @@ class MainScreenView: UIView {
 
 private extension MainScreenView {
     func setupConstraints() {
-        addSubview(weatherLabel)
+        addSubview(cityLabel)
         addSubview(temperatureLabel)
         addSubview(descriptionLabel)
-
+        addSubview(gradusLabel)
+        
         let minMaxTempStack = UIStackView(views: [maxTemperatureLabel, minTemperatureLabel],
                                           axis: .horizontal,
                                           spacing: 5,
@@ -46,56 +48,57 @@ private extension MainScreenView {
         addSubview(minMaxTempStack)
         guard let collectionView = collectionView else { return }
         let constraints = [
-            weatherLabel.topAnchor.constraint(equalTo: topAnchor),
-            weatherLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            weatherLabel.bottomAnchor.constraint(equalTo: temperatureLabel.topAnchor,
-                                                 constant: -5),
-
-            temperatureLabel.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 5),
-            temperatureLabel.centerXAnchor.constraint(equalTo: weatherLabel.centerXAnchor),
-            temperatureLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor,
-                                                     constant: -5),
-
-            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor,
-                                                  constant: 5),
+            cityLabel.topAnchor.constraint(equalTo: topAnchor),
+            cityLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            cityLabel.bottomAnchor.constraint(equalTo: temperatureLabel.topAnchor),
+            
+            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor),
+            temperatureLabel.centerXAnchor.constraint(equalTo: cityLabel.centerXAnchor),
+            temperatureLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor),
+            
+            gradusLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
+            gradusLabel.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor),
+            gradusLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor),
             descriptionLabel.centerXAnchor.constraint(equalTo: temperatureLabel.centerXAnchor),
             descriptionLabel.bottomAnchor.constraint(equalTo: minMaxTempStack.topAnchor,
                                                      constant: -5),
-
+            
             minMaxTempStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor,
                                                  constant: 5),
             minMaxTempStack.centerXAnchor.constraint(equalTo: descriptionLabel.centerXAnchor),
             minMaxTempStack.bottomAnchor.constraint(equalTo: collectionView.topAnchor,
                                                     constant: -25),
-
+            
             collectionView.topAnchor.constraint(equalTo: minMaxTempStack.bottomAnchor,
                                                 constant: 25),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                    constant: 10),
+                                                    constant: 30),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                     constant: 10),
+                                                     constant: -30),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,
                                                    constant: 10)
         ]
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         guard let collection = collectionView else {
             return
         }
         collection.register(TimeWeatherCollectionViewCell.self, forCellWithReuseIdentifier: TimeWeatherCollectionViewCell.reuseID)
-        collection.register(HeaderReusableView.self, forSupplementaryViewOfKind: MainScreenView.weatherHeaderID, withReuseIdentifier: headerId)
+        collection.register(HeaderReusableView.self, forSupplementaryViewOfKind: MainScreenView.timeWeatherHeaderID, withReuseIdentifier: timeHeaderId)
         collection.register(DaysWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DaysWeatherCollectionViewCell.reuseID)
-        //        collection.register(UICollectionReusableView.self, forSupplementaryViewOfKind: MainScreenView.weatherForecasHeaderID, withReuseIdentifier: forecastHeaderId)
+        collection.register(SecondHeaderReusableView.self, forSupplementaryViewOfKind: MainScreenView.dayWeatherHeaderID, withReuseIdentifier: dayHeaderId)
         collection.delegate = self
         collection.dataSource = self
         collection.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collection)
-        collection.backgroundColor = .red
-
-
+        collection.backgroundColor = .clear
+        collection.showsVerticalScrollIndicator = false
+        
     }
 }
 
@@ -111,12 +114,13 @@ extension MainScreenView: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeWeatherCollectionViewCell.reuseID, for: indexPath) as? TimeWeatherCollectionViewCell
             else { return UICollectionViewCell() }
+           
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DaysWeatherCollectionViewCell.reuseID, for: indexPath) as? DaysWeatherCollectionViewCell
@@ -126,11 +130,25 @@ extension MainScreenView: UICollectionViewDelegate, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                     withReuseIdentifier: headerId,
-                                                                     for: indexPath)
-        return header
+        switch indexPath.section {
+        case 0:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: timeHeaderId,
+                                                                         for: indexPath)
+            return header
+        case 1:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: dayHeaderId,
+                                                                         for: indexPath)
+            return header
+        default:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: dayHeaderId,
+                                                                         for: indexPath)
+            return header
+        }
+        
     }
 }
