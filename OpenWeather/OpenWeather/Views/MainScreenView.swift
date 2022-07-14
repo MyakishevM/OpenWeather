@@ -7,11 +7,7 @@
 
 import UIKit
 
-class MainScreenView: UIView {
-    static let timeWeatherHeaderID = "timeWeatherHeaderID"
-    static let dayWeatherHeaderID = "dayWeatherHeaderID"
-    let timeHeaderId = "timeHeaderId"
-    let dayHeaderId = "dayHeaderId"
+final class MainScreenView: UIView {
     private var cityLabel = UILabel(text: "City", fontSize: 25, color: UIColor.white, bold: true)
     private var temperatureLabel = UILabel(text: "17", fontSize: 70, color: UIColor.white, bold: false)
     private var gradusLabel = UILabel(text: "˚", fontSize: 80, color: UIColor.white, bold: true)
@@ -19,6 +15,12 @@ class MainScreenView: UIView {
     private var maxTemperatureLabel = UILabel(text: "H:18˚", fontSize: 20, color: UIColor.white, bold: true)
     private var minTemperatureLabel = UILabel(text: "L:12˚", fontSize: 20, color: UIColor.white, bold: true)
     private var collectionView: UICollectionView?
+    static let timeWeatherHeaderID = "timeWeatherHeaderID"
+    static let dayWeatherHeaderID = "dayWeatherHeaderID"
+    let timeHeaderId = "timeHeaderId"
+    let dayHeaderId = "dayHeaderId"
+    let fetchWeaherData = FetchWeatherData()
+    var weatherDTO: WeatherDataModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +28,8 @@ class MainScreenView: UIView {
         setupConstraints()
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
+        fetchData(city: "Moscow")
+        
     }
     
     required init?(coder: NSCoder) {
@@ -92,6 +96,7 @@ private extension MainScreenView {
         collection.register(HeaderReusableView.self, forSupplementaryViewOfKind: MainScreenView.timeWeatherHeaderID, withReuseIdentifier: timeHeaderId)
         collection.register(DaysWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DaysWeatherCollectionViewCell.reuseID)
         collection.register(SecondHeaderReusableView.self, forSupplementaryViewOfKind: MainScreenView.dayWeatherHeaderID, withReuseIdentifier: dayHeaderId)
+//        collection.register(BackGroundReusableView.self, forSupplementaryViewOfKind: , withReuseIdentifier: bgSectionId)
         collection.delegate = self
         collection.dataSource = self
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +104,15 @@ private extension MainScreenView {
         collection.backgroundColor = .clear
         collection.showsVerticalScrollIndicator = false
         
+    }
+    
+    func fetchData(city: String) {
+        self.fetchWeaherData.fetchWeather(city: city) { (response) in
+            guard let response = response else { return }
+            self.weatherDTO = response
+            print(self.weatherDTO as Any)
+      
+        }
     }
 }
 

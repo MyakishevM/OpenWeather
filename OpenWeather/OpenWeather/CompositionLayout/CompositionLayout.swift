@@ -29,6 +29,8 @@ func createLayout() -> UICollectionViewCompositionalLayout {
                       elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
             ]
             section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
+            //TODO: МАКСИМ должен сделать это
+//            section.decorationItems = NSCollectionLayoutDecorationItem.background(elementKind: MainScreenView.backgroundSectionID)
             return section
 
         case 1:
