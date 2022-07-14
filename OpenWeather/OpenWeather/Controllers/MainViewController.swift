@@ -12,8 +12,7 @@ final class MainViewController: UIViewController {
     private lazy var mainView = MainScreenView()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-//        UIColor(patternImage: UIImage(named: "backImage")!)
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "backImage")!)
         
         view.addSubview(mainView)
         setupConstraints()

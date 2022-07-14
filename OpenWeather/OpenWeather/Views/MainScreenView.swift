@@ -134,7 +134,6 @@ extension MainScreenView: UICollectionViewDelegate, UICollectionViewDataSource {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeWeatherCollectionViewCell.reuseID, for: indexPath) as? TimeWeatherCollectionViewCell
             else { return UICollectionViewCell() }
-           
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DaysWeatherCollectionViewCell.reuseID, for: indexPath) as? DaysWeatherCollectionViewCell
