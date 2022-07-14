@@ -76,7 +76,6 @@ private extension MainScreenView {
             guard let response = response else { return }
             self.weatherDTO = response
             print(self.weatherDTO as Any)
-      
         }
     }
 }
