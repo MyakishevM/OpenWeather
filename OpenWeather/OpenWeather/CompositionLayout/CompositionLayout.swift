@@ -8,7 +8,7 @@
 import UIKit
 
 func createLayout() -> UICollectionViewCompositionalLayout {
-    return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection in
+    let layout = UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
 
         switch sectionNumber {
         case 0:
@@ -28,11 +28,11 @@ func createLayout() -> UICollectionViewCompositionalLayout {
                                         heightDimension: .absolute(20)),
                       elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
             ]
-            section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
+            section.contentInsets = .init(top: 0, leading: 0, bottom: 20, trailing: 0)
             //TODO: МАКСИМ должен сделать это
-//            section.decorationItems = NSCollectionLayoutDecorationItem.background(elementKind: MainScreenView.backgroundSectionID)
+            section.decorationItems = [ NSCollectionLayoutDecorationItem.background(elementKind: RoundedBackgroundView.reuseID) ]
             return section
-
+            
         case 1:
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(0.1))
@@ -50,6 +50,7 @@ func createLayout() -> UICollectionViewCompositionalLayout {
                       elementKind: MainScreenView.dayWeatherHeaderID, alignment: .topLeading)
             ]
             section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
+            section.decorationItems = [ NSCollectionLayoutDecorationItem.background(elementKind: RoundedBackgroundView.reuseID) ]
             return section
         default :
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -67,7 +68,11 @@ func createLayout() -> UICollectionViewCompositionalLayout {
                                         heightDimension: .absolute(30)),
                       elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
             ]
+           
             return section
         }
     }
+    layout.register(RoundedBackgroundView.self, forDecorationViewOfKind: RoundedBackgroundView.reuseID)
+    return layout
 }
+

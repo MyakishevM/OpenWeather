@@ -49,12 +49,31 @@ final class SecondHeaderReusableView: UICollectionReusableView {
     }
 }
 
-final class BackGroundReusableView: UICollectionReusableView {
+
+final class RoundedBackgroundView: UICollectionReusableView {
+static let reuseID = "RoundedBackgroundView"
+    private var insetView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .blue
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blue
+        backgroundColor = .clear
+        addSubview(insetView)
+
+        NSLayoutConstraint.activate([
+            insetView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            trailingAnchor.constraint(equalTo: insetView.trailingAnchor),
+            insetView.topAnchor.constraint(equalTo: topAnchor),
+            insetView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10)
+        ])
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
