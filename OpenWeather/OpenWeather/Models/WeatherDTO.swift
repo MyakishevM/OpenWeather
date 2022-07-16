@@ -1,9 +1,4 @@
-//
-//  WeatherDTO.swift
-//  OpenWeather
-//
-//  Created by Maxim Myakishev on 14.07.2022.
-//
+
 
 import Foundation
 
