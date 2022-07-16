@@ -53,7 +53,7 @@ private extension MainViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 27
+        case 0: return 2
         case 1: return 10
         default: return 1
         }

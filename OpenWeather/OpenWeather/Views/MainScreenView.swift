@@ -14,22 +14,35 @@ final class MainScreenView: UIView {
     private var descriptionLabel = UILabel(text: "showers", fontSize: 20, color: UIColor.white, bold: true)
     private var maxTemperatureLabel = UILabel(text: "H:18˚", fontSize: 20, color: UIColor.white, bold: true)
     private var minTemperatureLabel = UILabel(text: "L:12˚", fontSize: 20, color: UIColor.white, bold: true)
-    let fetchWeaherData = FetchWeatherData()
-    var weatherDTO: WeatherDTO?
+    private var timer: Timer?
+    let fetchWeatherData = FetchWeatherData()
+    var weatherDTO: WeatherDTO? = nil
+    var dailyWeather = [Daily]()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupConstraints()
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
-        fetchData(city: "Moscow")
-        
+        timer?.invalidate()
+        timer = Timer(timeInterval: 0.5, repeats: false) { (_) in
+            self.fetchWeatherData.fetchWeather(lat: 37.33233141, long: -122.0312186) { (response) in
+                guard let response = response else { return }
+                self.weatherDTO = response
+                let data = response.daily
+                self.dailyWeather.append(contentsOf: data ?? [Daily(dt: nil, sunrise: nil, sunset: nil, moonrise: nil, moonset: nil, moonPhase: nil, temp: Temp(day: nil, min: nil, max: nil, night: nil, eve: nil, morn: nil), feelsLike: FeelsLike(day: nil, night: nil, eve: nil, morn: nil), pressure: nil, humidity: nil, dewPoint: nil, windSpeed: nil, windDeg: nil, windGust: nil, weather: nil, clouds: nil, pop: nil, rain: nil, uvi: nil)])
+            }
+        }
+        print(dailyWeather)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    
 }
 
 private extension MainScreenView {
@@ -70,12 +83,6 @@ private extension MainScreenView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-
-    func fetchData(city: String) {
-        self.fetchWeaherData.fetchWeather(city: city) { (response) in
-            guard let response = response else { return }
-            self.weatherDTO = response
-            print(self.weatherDTO as Any)
-        }
-    }
+    
+    
 }
