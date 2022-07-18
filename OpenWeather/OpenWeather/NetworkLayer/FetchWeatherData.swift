@@ -9,14 +9,14 @@ import Foundation
 
 final class FetchWeatherData {
     let networkService = NetworkManager()
-    func fetchWeather(city:String, response: @escaping (WeatherDataModel?) -> Void) {
-        networkService.request(city: "Minsk") { (result) in
+    func fetchWeather(lat:Double ,long: Double, response: @escaping (WeatherDTO?) -> Void) {
+        networkService.request(lat: lat, long: long) { (result) in
+            DispatchQueue.global().async {
             switch result {
             case .success(let data):
                 do {
-                    let weatherDTO = try JSONDecoder().decode(WeatherDataModel.self, from: data)
+                    let weatherDTO = try JSONDecoder().decode(WeatherDTO.self, from: data)
                     response(weatherDTO)
-                    print(weatherDTO)
                 } catch let jsonError {
                     print(jsonError)
                 }
@@ -25,5 +25,7 @@ final class FetchWeatherData {
                 response(nil)
             }
         }
+        }
     }
+    
 }

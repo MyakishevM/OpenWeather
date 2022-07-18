@@ -26,10 +26,9 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             section.boundarySupplementaryItems = [
                 .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                         heightDimension: .absolute(20)),
-                      elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
+                      elementKind: WeatherCollectionView.timeWeatherHeaderID, alignment: .topLeading)
             ]
             section.contentInsets = .init(top: 0, leading: 0, bottom: 20, trailing: 0)
-            //TODO: МАКСИМ должен сделать это
             section.decorationItems = [ NSCollectionLayoutDecorationItem.background(elementKind: RoundedBackgroundView.reuseID) ]
             return section
             
@@ -47,7 +46,7 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             section.boundarySupplementaryItems = [
                 .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                         heightDimension: .absolute(50)),
-                      elementKind: MainScreenView.dayWeatherHeaderID, alignment: .topLeading)
+                      elementKind: WeatherCollectionView.dayWeatherHeaderID, alignment: .topLeading)
             ]
             section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
             section.decorationItems = [ NSCollectionLayoutDecorationItem.background(elementKind: RoundedBackgroundView.reuseID) ]
@@ -66,7 +65,7 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             section.boundarySupplementaryItems = [
                 .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                         heightDimension: .absolute(30)),
-                      elementKind: MainScreenView.timeWeatherHeaderID, alignment: .topLeading)
+                      elementKind: WeatherCollectionView.timeWeatherHeaderID, alignment: .topLeading)
             ]
            
             return section
