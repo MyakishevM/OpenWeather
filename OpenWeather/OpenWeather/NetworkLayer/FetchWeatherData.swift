@@ -11,6 +11,7 @@ final class FetchWeatherData {
     let networkService = NetworkManager()
     func fetchWeather(lat:Double ,long: Double, response: @escaping (WeatherDTO?) -> Void) {
         networkService.request(lat: lat, long: long) { (result) in
+            DispatchQueue.global().async {
             switch result {
             case .success(let data):
                 do {
@@ -24,5 +25,7 @@ final class FetchWeatherData {
                 response(nil)
             }
         }
+        }
     }
+    
 }

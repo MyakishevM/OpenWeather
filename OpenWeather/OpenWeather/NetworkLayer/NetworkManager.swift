@@ -19,9 +19,8 @@ final class NetworkManager {
         ]
         guard let url = urlConstructor.url else { return }
         session.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.global(qos: .background).async {
-                print(data)
+            DispatchQueue.global().async {
+                guard let data = data, error == nil else { return }
                 if let error = error {
                     completion(.failure(error))
                     return
