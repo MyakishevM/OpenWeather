@@ -8,12 +8,12 @@
 import UIKit
 
 final class MainScreenView: UIView {
-     var cityLabel = UILabel(text: "City", fontSize: 25, color: UIColor.white, bold: true)
-    private var temperatureLabel = UILabel(text: "17", fontSize: 70, color: UIColor.white, bold: false)
-    private var gradusLabel = UILabel(text: "˚", fontSize: 80, color: UIColor.white, bold: true)
-    private var descriptionLabel = UILabel(text: "showers", fontSize: 20, color: UIColor.white, bold: true)
-    private var maxTemperatureLabel = UILabel(text: "H:18˚", fontSize: 20, color: UIColor.white, bold: true)
-    private var minTemperatureLabel = UILabel(text: "L:12˚", fontSize: 20, color: UIColor.white, bold: true)
+    var cityLabel = UILabel(text: "City", fontSize: 25, color: UIColor.white, bold: true)
+    var temperatureLabel = UILabel(text: "17", fontSize: 70, color: UIColor.white, bold: false) 
+    private let gradusLabel = UILabel(text: "˚", fontSize: 80, color: UIColor.white, bold: true)
+    var descriptionLabel = UILabel(text: "showers", fontSize: 20, color: UIColor.white, bold: true)
+    var maxTemperatureLabel = UILabel(text: "H:18˚", fontSize: 20, color: UIColor.white, bold: true)
+    var minTemperatureLabel = UILabel(text: "L:12˚", fontSize: 20, color: UIColor.white, bold: true)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,6 +65,4 @@ private extension MainScreenView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
-    
 }

@@ -30,6 +30,13 @@ final class TimeWeatherCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(from element: Current) {
+        guard let temp = element.temp,
+              let time = element.dt else { return }
+        timeLabel.text = DateHelper.formatDateFromIntToString(time)
+        temperatureLabel.text = String(describing: Int(temp)) + "˚"
+    }
+
     private func setupConstraints() {
         contentView.addSubview(timeLabel)
         contentView.addSubview(weatherImage)
@@ -50,3 +57,4 @@ final class TimeWeatherCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(constraints)
     }
 }
+

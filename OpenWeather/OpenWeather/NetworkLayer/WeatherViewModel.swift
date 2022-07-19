@@ -16,8 +16,10 @@ final class WeatherViewModel {
     var updateDelegate: WeatherUpdateDelegate?
     var dataSource: WeatherDTO?
 
+
+    //TODO: сделать чтобы подтягивалось
     func getDate() {
-        networkManager.fetchWeather(lat: 37.33233141, long: -122.0312186) { [weak self] weather in
+        networkManager.fetchWeather(lat: 55.234123, long: 37.32154) { [weak self] weather in
             DispatchQueue.global().async {
             self?.dataSource = weather
                 self?.updateDelegate?.updateElements()

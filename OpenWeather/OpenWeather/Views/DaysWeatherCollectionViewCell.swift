@@ -31,6 +31,15 @@ class DaysWeatherCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(from element: Daily) {
+        guard let day = element.dt,
+              let minTemp = element.temp.min,
+              let maxTemp = element.temp.max else { return }
+        dayLabel.text = DateHelper.formatFromDateToWeekday(day)
+        minTemperatureLabel.text = String(describing: Int(minTemp)) + "˚"
+        maxTemperatureLabel.text = String(describing: Int(maxTemp)) + "˚"
+    }
+
     private func setupConstraints() {
         contentView.addSubview(dayLabel)
         contentView.addSubview(weatherImage)
@@ -44,22 +53,19 @@ class DaysWeatherCollectionViewCell: UICollectionViewCell {
                                                constant: -15),
 
             weatherImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            weatherImage.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor,
-                                                  constant: 15),
-            weatherImage.trailingAnchor.constraint(equalTo: minTemperatureLabel.leadingAnchor,
-                                                  constant: -15),
+            weatherImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
             minTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             minTemperatureLabel.leadingAnchor.constraint(equalTo: weatherImage.trailingAnchor,
-                                                        constant: 15),
+                                                         constant: 15),
             minTemperatureLabel.trailingAnchor.constraint(equalTo: maxTemperatureLabel.leadingAnchor,
-                                                         constant: -100),
+                                                          constant: -50),
 
             maxTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             maxTemperatureLabel.leadingAnchor.constraint(equalTo: minTemperatureLabel.trailingAnchor,
-                                                        constant: 100),
+                                                         constant: 50),
             maxTemperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                         constant: -7)
+                                                          constant: -7)
         ]
         NSLayoutConstraint.activate(constraints)
     }
