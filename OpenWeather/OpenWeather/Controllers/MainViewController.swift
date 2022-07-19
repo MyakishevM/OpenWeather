@@ -36,10 +36,6 @@ final class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         setupLocation()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.mainView.cityLabel.text = "\(String(describing: self.dailyWeather.first?.feelsLike.day))"
-    }
 }
 
 private extension MainViewController {
@@ -66,8 +62,8 @@ private extension MainViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 15
-        case 1: return 10
+        case 0: return hourlyWeather.count
+        case 1: return dailyWeather.count
         default: return 1
         }
     }
@@ -77,14 +73,28 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        //TODO: Сделать закат и рассвет
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeWeatherCollectionViewCell.reuseID, for: indexPath) as? TimeWeatherCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeWeatherCollectionViewCell.reuseID,
+                                                                for: indexPath) as? TimeWeatherCollectionViewCell
             else { return UICollectionViewCell() }
+            let currentHourlyWeather = hourlyWeather[indexPath.row]
+            cell.configure(from: currentHourlyWeather)
+            if indexPath.row == 0 {
+                cell.timeLabel.text = "Now"
+            }
             return cell
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DaysWeatherCollectionViewCell.reuseID, for: indexPath) as? DaysWeatherCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DaysWeatherCollectionViewCell.reuseID,
+                                                                for: indexPath) as? DaysWeatherCollectionViewCell
             else { return UICollectionViewCell() }
+            let currentDailyWeather = dailyWeather[indexPath.row]
+            cell.configure(from: currentDailyWeather)
+            if indexPath.row == 0 {
+                cell.dayLabel.text = "Today"
+            }
             return cell
         default:
             return UICollectionViewCell()
@@ -96,7 +106,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case 0:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: WeatherCollectionView.timeHeaderId,
-                                                                         for: indexPath)
+                                                                         for: indexPath) as! HeaderReusableView
+            header.label.text = dailyWeather.first?.weather?.first?.weatherDescription?.capitalized
             return header
         case 1:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
@@ -109,7 +120,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                                                                          for: indexPath)
             return header
         }
-        
     }
 }
 
@@ -138,7 +148,24 @@ extension MainViewController: CLLocationManagerDelegate {
 
 extension MainViewController: WeatherUpdateDelegate {
     func updateElements() {
-            dailyWeather = viewModel?.dataSource?.daily ?? [Daily(dt: nil, sunrise: nil, sunset: nil, moonrise: nil, moonset: nil, moonPhase: nil, temp: Temp(day: nil, min: nil, max: nil, night: nil, eve: nil, morn: nil), feelsLike: FeelsLike(day: nil, night: nil, eve: nil, morn: nil), pressure: nil, humidity: nil, dewPoint: nil, windSpeed: nil, windDeg: nil, windGust: nil, weather: nil, clouds: nil, pop: nil, rain: nil, uvi: nil)]
+        guard let daily = viewModel?.dataSource?.daily,
+        let hourly = viewModel?.dataSource?.hourly,
+        let current = viewModel?.dataSource?.current,
+        let mainTemp = viewModel?.dataSource?.current?.temp,
+        let minTemp = viewModel?.dataSource?.daily?.first?.temp.min,
+        let maxTemp = viewModel?.dataSource?.daily?.first?.temp.max,
+        let description = viewModel?.dataSource?.daily?.first?.weather?.first?.main else { return }
+        dailyWeather = daily
+        hourlyWeather = hourly
+        currentWeather = current
+        DispatchQueue.main.async {
+            self.mainView.cityLabel.text = self.viewModel?.dataSource?.timezone
+            self.mainView.temperatureLabel.text = String(describing: Int(mainTemp))
+            self.mainView.minTemperatureLabel.text =  "L: \(String(describing: Int(minTemp)))˚"
+            self.mainView.maxTemperatureLabel.text = "H: \(String(describing: Int(maxTemp)))˚"
+            self.mainView.descriptionLabel.text = description
+            self.weatherView.collectionView?.reloadData()
+        }
     }
 }
 

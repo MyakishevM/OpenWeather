@@ -8,7 +8,7 @@
 import UIKit
 
 final class HeaderReusableView: UICollectionReusableView {
-    let label = UILabel(text: "Rainy conditions tonight", fontSize: 15, color: UIColor.white, bold: false)
+    let label = UILabel(text: "Hourly forecast", fontSize: 15, color: UIColor.white, bold: false)
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
@@ -56,6 +56,7 @@ static let reuseID = "RoundedBackgroundView"
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .blue
+        view.layer.opacity = 0.3
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         return view

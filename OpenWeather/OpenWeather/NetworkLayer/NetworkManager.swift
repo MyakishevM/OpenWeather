@@ -15,18 +15,17 @@ final class NetworkManager {
             URLQueryItem(name: "lat", value: String(lat)),
             URLQueryItem(name: "lon", value: String(long)),
             URLQueryItem(name: "exclude", value: "minutely"),
-            URLQueryItem(name: "appid", value: apiKey)
+            URLQueryItem(name: "appid", value: apiKey),
+            URLQueryItem(name: "units", value: "metric")
         ]
         guard let url = urlConstructor.url else { return }
         session.dataTask(with: url) { data, response, error in
-            DispatchQueue.global().async {
                 guard let data = data, error == nil else { return }
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
                 completion(.success(data))
-            }
         }.resume()
     }
 }
