@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
     private lazy var weatherView = WeatherCollectionView()
     private let locationManager = CLLocationManager()
     private var viewModel: WeatherViewModel?
+    private var lottie = WeatherLottie()
     let fetchWeatherData = FetchWeatherData()
     var currentLocation: CLLocation?
     var dailyWeather = [Daily]()
@@ -21,9 +22,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "backImage")!)
-        view.addSubview(mainView)
-        view.addSubview(weatherView)
+        view.backgroundColor = .blue
         setupConstraints()
         weatherView.collectionView?.delegate = self
         weatherView.collectionView?.dataSource = self
@@ -40,7 +39,16 @@ final class MainViewController: UIViewController {
 
 private extension MainViewController {
     func setupConstraints() {
+        lottie.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lottie)
+        view.addSubview(mainView)
+        view.addSubview(weatherView)
         let constraints = [
+            lottie.topAnchor.constraint(equalTo: view.topAnchor),
+            lottie.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lottie.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lottie.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                           constant: 10),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -53,7 +61,7 @@ private extension MainViewController {
                                                  constant: 15),
             weatherView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                   constant: -15),
-            weatherView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            weatherView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -165,8 +173,20 @@ extension MainViewController: WeatherUpdateDelegate {
             self.mainView.maxTemperatureLabel.text = "H: \(String(describing: Int(maxTemp)))˚"
             self.mainView.descriptionLabel.text = description
             self.weatherView.collectionView?.reloadData()
+            switch self.mainView.descriptionLabel.text {
+            case "Snow":
+                self.lottie.setupAnimations(filename: "snowly")
+            case "Clear":
+                self.lottie.setupAnimations(filename: "summer")
+            case "Cloud":
+                self.lottie.setupAnimations(filename: "cloudly")
+            default:
+                self.lottie.setupAnimations(filename: "cloudly")
+            }
         }
     }
+    
+    
 }
 
 
