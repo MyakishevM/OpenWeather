@@ -72,12 +72,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch section {
         case 0: return hourlyWeather.count
         case 1: return dailyWeather.count
+        case 2: return 5
         default: return 1
         }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+      3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,6 +105,34 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.dayLabel.text = "Today"
             }
             return cell
+        case 2:
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoWeatherViewCell.reuseID, for: indexPath) as! InfoWeatherViewCell
+            switch indexPath.row {
+            case 0:
+                let sunrise = currentWeather?.sunrise
+                let sunset = currentWeather?.sunset
+                cell.configuteSunrise(header: "SUNRISE", sunrise: sunrise ?? 0, sunset: sunset ?? 0)
+                return cell
+            case 1:
+                let value = currentWeather?.windSpeed
+                cell.configureValue(header: "WIND SPEED", value: value ?? 0.0, with: .wind)
+                return cell
+            case 2:
+                let value = currentWeather?.feelsLike
+                cell.configureValue(header: "FEELS LIKE", value: value ?? 0.0, with: .feelsLike)
+                return cell
+            case 3:
+                let value = currentWeather?.humidity
+                cell.configureValue(header: "HUMIDITY", value: value ?? 0 , with: .humidity)
+                return cell
+            case 4:
+                let value = ( currentWeather?.visibility ?? 0 ) / 1000
+                cell.configureValue(header: "VISIBILITY", value: value, with: .visibility)
+                return cell
+            default:
+                return cell
+            }
+
         default:
             return UICollectionViewCell()
         }
@@ -185,8 +214,6 @@ extension MainViewController: WeatherUpdateDelegate {
             }
         }
     }
-    
-    
 }
 
 

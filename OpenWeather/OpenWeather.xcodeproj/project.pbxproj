@@ -11,10 +11,11 @@
 		0C48B5CC287F567600737DDF /* FetchWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C48B5CB287F567600737DDF /* FetchWeatherData.swift */; };
 		0C6576782889DB3F00F96F5A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0C6576772889DB3F00F96F5A /* Lottie */; };
 		0C65767B2889DB9400F96F5A /* WeatherLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C65767A2889DB9400F96F5A /* WeatherLottieView.swift */; };
-		0C65767D2889DE7600F96F5A /* summer.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C65767C2889DE7600F96F5A /* summer.json */; };
-		0C6576832889E8B900F96F5A /* snowly.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C6576822889E8B900F96F5A /* snowly.json */; };
-		0C6576852889ED1F00F96F5A /* cloudly.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C6576842889ED1E00F96F5A /* cloudly.json */; };
 		0C9C30B52885EC3D00BD3C9B /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C30B42885EC3D00BD3C9B /* WeatherViewModel.swift */; };
+		200482B9288B311E00679C15 /* summer.json in Resources */ = {isa = PBXBuildFile; fileRef = 200482B6288B311E00679C15 /* summer.json */; };
+		200482BA288B311E00679C15 /* snowly.json in Resources */ = {isa = PBXBuildFile; fileRef = 200482B7288B311E00679C15 /* snowly.json */; };
+		200482BB288B311E00679C15 /* cloudly.json in Resources */ = {isa = PBXBuildFile; fileRef = 200482B8288B311E00679C15 /* cloudly.json */; };
+		200482BD288B33AE00679C15 /* InfoWeatherViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200482BC288B33AE00679C15 /* InfoWeatherViewCell.swift */; };
 		2031755F287E0059006D6D44 /* TimeWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2031755E287E0059006D6D44 /* TimeWeatherCollectionViewCell.swift */; };
 		20317561287E0E05006D6D44 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20317560287E0E05006D6D44 /* HeaderReusableView.swift */; };
 		20317563287E1696006D6D44 /* DaysWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20317562287E1696006D6D44 /* DaysWeatherCollectionViewCell.swift */; };
@@ -37,10 +38,11 @@
 		0C48B5C9287F4E0400737DDF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0C48B5CB287F567600737DDF /* FetchWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchWeatherData.swift; sourceTree = "<group>"; };
 		0C65767A2889DB9400F96F5A /* WeatherLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLottieView.swift; sourceTree = "<group>"; };
-		0C65767C2889DE7600F96F5A /* summer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = summer.json; path = ../../../../../../Downloads/summer.json; sourceTree = "<group>"; };
-		0C6576822889E8B900F96F5A /* snowly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = snowly.json; path = ../../../../../../Downloads/snowly.json; sourceTree = "<group>"; };
-		0C6576842889ED1E00F96F5A /* cloudly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = cloudly.json; path = ../../../../../../Downloads/cloudly.json; sourceTree = "<group>"; };
 		0C9C30B42885EC3D00BD3C9B /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		200482B6288B311E00679C15 /* summer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = summer.json; sourceTree = "<group>"; };
+		200482B7288B311E00679C15 /* snowly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = snowly.json; sourceTree = "<group>"; };
+		200482B8288B311E00679C15 /* cloudly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloudly.json; sourceTree = "<group>"; };
+		200482BC288B33AE00679C15 /* InfoWeatherViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWeatherViewCell.swift; sourceTree = "<group>"; };
 		2031755E287E0059006D6D44 /* TimeWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		20317560287E0E05006D6D44 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		20317562287E1696006D6D44 /* DaysWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -86,9 +88,9 @@
 		0C6576792889DB7E00F96F5A /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				0C6576822889E8B900F96F5A /* snowly.json */,
-				0C6576842889ED1E00F96F5A /* cloudly.json */,
-				0C65767C2889DE7600F96F5A /* summer.json */,
+				200482B8288B311E00679C15 /* cloudly.json */,
+				200482B7288B311E00679C15 /* snowly.json */,
+				200482B6288B311E00679C15 /* summer.json */,
 				0C65767A2889DB9400F96F5A /* WeatherLottieView.swift */,
 			);
 			path = Lottie;
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				20FBB4AC287CBE590047EB5A /* MainScreenView.swift */,
+				200482BC288B33AE00679C15 /* InfoWeatherViewCell.swift */,
 				20722AA82880A6060066E8C8 /* WeatherCollectionView.swift */,
 				20317560287E0E05006D6D44 /* HeaderReusableView.swift */,
 				20317562287E1696006D6D44 /* DaysWeatherCollectionViewCell.swift */,
@@ -240,12 +243,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				200482BA288B311E00679C15 /* snowly.json in Resources */,
+				200482B9288B311E00679C15 /* summer.json in Resources */,
 				20FBB4AB287CBDE60047EB5A /* Main.storyboard in Resources */,
 				20FBB49D287CB4C20047EB5A /* LaunchScreen.storyboard in Resources */,
-				0C65767D2889DE7600F96F5A /* summer.json in Resources */,
+				200482BB288B311E00679C15 /* cloudly.json in Resources */,
 				20FBB49A287CB4C20047EB5A /* Assets.xcassets in Resources */,
-				0C6576852889ED1F00F96F5A /* cloudly.json in Resources */,
-				0C6576832889E8B900F96F5A /* snowly.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				200482BD288B33AE00679C15 /* InfoWeatherViewCell.swift in Sources */,
 				207B2F8428874ACF0000A068 /* DateHelper.swift in Sources */,
 				20FBB495287CB4BD0047EB5A /* MainViewController.swift in Sources */,
 				207B2F8628874BB70000A068 /* StackViewModifier.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 final class WeatherCollectionView: UIView {
     static let timeWeatherHeaderID = "timeWeatherHeaderID"
     static let dayWeatherHeaderID = "dayWeatherHeaderID"
+    static let infoWeatherID = "infoWeatherID"
     static  let timeHeaderId = "timeHeaderId"
     static let dayHeaderId = "dayHeaderId"
     var collectionView: UICollectionView?
@@ -32,9 +33,11 @@ final class WeatherCollectionView: UIView {
             return
         }
         collection.register(TimeWeatherCollectionViewCell.self, forCellWithReuseIdentifier: TimeWeatherCollectionViewCell.reuseID)
+        collection.register(InfoWeatherViewCell.self, forCellWithReuseIdentifier: InfoWeatherViewCell.reuseID)
         collection.register(HeaderReusableView.self, forSupplementaryViewOfKind: WeatherCollectionView.timeWeatherHeaderID, withReuseIdentifier: WeatherCollectionView.timeHeaderId)
         collection.register(DaysWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DaysWeatherCollectionViewCell.reuseID)
         collection.register(SecondHeaderReusableView.self, forSupplementaryViewOfKind: WeatherCollectionView.dayWeatherHeaderID, withReuseIdentifier: WeatherCollectionView.dayHeaderId)
+
         collection.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collection)
         collection.backgroundColor = .clear
@@ -42,7 +45,6 @@ final class WeatherCollectionView: UIView {
     }
 
     func setupConstraints() {
-
         guard let collectionView = collectionView else { return }
         let constraints = [
             collectionView.topAnchor.constraint(equalTo: topAnchor),
@@ -52,6 +54,4 @@ final class WeatherCollectionView: UIView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-
-
 }

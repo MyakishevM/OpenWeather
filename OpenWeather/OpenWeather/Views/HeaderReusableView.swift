@@ -56,8 +56,10 @@ static let reuseID = "RoundedBackgroundView"
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .blue
-        view.layer.opacity = 0.3
+        view.layer.opacity = 0.05
         view.layer.cornerRadius = 15
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         view.clipsToBounds = true
         return view
     }()

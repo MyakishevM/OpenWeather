@@ -51,6 +51,18 @@ func createLayout() -> UICollectionViewCompositionalLayout {
             section.contentInsets = .init(top: 0, leading: 0, bottom: 10, trailing: 0)
             section.decorationItems = [ NSCollectionLayoutDecorationItem.background(elementKind: RoundedBackgroundView.reuseID) ]
             return section
+        case 2:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
+
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = .init(top: 0, leading: 10, bottom: 10, trailing: 10)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .estimated(150))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+            
+            let section = NSCollectionLayoutSection(group: group)
+                       return section
         default :
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
@@ -67,7 +79,6 @@ func createLayout() -> UICollectionViewCompositionalLayout {
                                         heightDimension: .absolute(30)),
                       elementKind: WeatherCollectionView.timeWeatherHeaderID, alignment: .topLeading)
             ]
-           
             return section
         }
     }
